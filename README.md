@@ -26,6 +26,7 @@ The clock continues running until its process is stopped. It reads `minute-clock
 | Field | Type | Description |
 | --- | --- | --- |
 | `times` | string array | One or more 24-hour times in `HH:mm` format |
+| `weekdays` | number array | One or more weekdays: `0` = Sunday through `6` = Saturday |
 | `title` | string | Name used in log messages |
 | `command` | string | Executable to start |
 | `arguments` | string array | Arguments passed to the executable |
@@ -37,6 +38,7 @@ Example:
 [
   {
     "times": ["08:45", "11:44"],
+    "weekdays": [1, 2, 3, 4, 5],
     "title": "morning plan",
     "command": "cmd",
     "arguments": ["/c", "plan-calendar.cmd"],

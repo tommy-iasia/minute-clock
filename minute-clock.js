@@ -23,13 +23,16 @@ function loadSchedule() {
       !item ||
       !Array.isArray(item.times) ||
       !item.times.every((time) => typeof time === 'string' && /^([01]\d|2[0-3]):[0-5]\d$/.test(time)) ||
+      !Array.isArray(item.weekdays) ||
+      item.weekdays.length === 0 ||
+      !item.weekdays.every((weekday) => Number.isInteger(weekday) && weekday >= 0 && weekday <= 6) ||
       typeof item.title !== 'string' ||
       typeof item.command !== 'string' ||
       !Array.isArray(item.arguments) ||
       !item.arguments.every((argument) => typeof argument === 'string') ||
       typeof item.path !== 'string'
     ) {
-      throw new TypeError(`Scheduled item ${index} must have valid times, title, command, arguments, and path fields.`);
+      throw new TypeError(`Scheduled item ${index} must have valid times, weekdays, title, command, arguments, and path fields.`);
     }
   }
 
@@ -53,7 +56,7 @@ function runMinute(now = new Date(), launch = launchItem) {
   const schedule = loadSchedule();
 
   for (const item of schedule) {
-    if (item.times.includes(minute)) {
+    if (item.times.includes(minute) && item.weekdays.includes(now.getDay())) {
       console.log(`[${timestamp()}] [${minute}] Triggering "${item.title}".`);
       launch(item);
     }

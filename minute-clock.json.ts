@@ -1,11 +1,10 @@
-export type MinuteClockTime = `${number}${number}:${number}${number}`;
+export type MinuteClockJson = MinuteClockItem[];
 
-export interface MinuteClockItem {
-  times: MinuteClockTime[];
+interface MinuteClockItem {
+  times: `${number}${number}:${number}${number}`[];
+  weekdays: (0 | 1 | 2 | 3 | 4 | 5 | 6)[];
   title: string;
   command: string;
   arguments: string[];
   path: string;
 }
-
-export type MinuteClockSchedule = MinuteClockItem[];
